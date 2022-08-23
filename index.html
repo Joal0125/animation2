@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>replit</title>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- <script src="script.js"></script>
+</!-->
+		<canvas id="myCanvas" width="480" height="320"></canvas>
+		<script>
+			let canvas;
+			let context;
+			//window.onload = init;
+			let rectX = 0;
+			let rectY = 0;
+			let secondsPassed = 0;
+			let animationStartTime = 0;
+			let movingSpeed = 50;
+			var requestId = 0;
+
+			function animate(time) {
+				canvas = document.getElementById("myCanvas");
+				context = canvas.getContext("2d");
+				//calcula cuanto tiempo ha pasado
+				secondsPassed = (time - animationStartTime) / 1000;
+				//avanzar en el tiempo con una cantidad máxima
+				secondsPassed = Math.min(secondsPassed, 0.1);
+				animationStartTime = time;
+				//actualiza el objeto en el loop. Pasa el tiempo al update
+				update(secondsPassed);
+				draw();
+				//empieza el primer requerimiento del frame
+				requestId = window.requestAnimationFrame(animate);
+			}
+
+			function update(secondsPassed) {
+				//usa el tiempo para calcular la nueva posición
+				rectX += movingSpeed * secondsPassed;
+				rectY += movingSpeed * secondsPassed;
+			}
+
+			function draw() {
+				//limpiar todo el canvas
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				context.fillStyle = "#ff8080";
+				context.fillRect(rectX, rectY, 50, 50);
+			}
+
+			function start() {
+				animationStartTime = window.performance.now();
+				requestId = window.requestAnimationFrame(animate);
+			}
+
+			function stop() {
+				if (requestId) window.cancelAnimationFrame(requestId);
+				requestId = 0;
+			}
+		</script>
+
+		<!--aquí quedarán los controles de comenzar y parar_SIN TERMINAR-->
+		<button onclick="start()">Click me to start!</button>
+		<button onclick="stop()">Click me to stop!</button>
+	</body>
+</html>

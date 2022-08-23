@@ -1,0 +1,6 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+/*para darle borde al canvas*/
+canvas { display:block; margin:10px auto; border:1px solid black; height:400px; width:800px; } 
